@@ -53,6 +53,6 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") String id, Model model) {
         Product product = service.findById(id);
         service.delete(product);
-        return "redirect:product/list";
+        return "redirect:../list";
     }
 }
