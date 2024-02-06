@@ -39,4 +39,9 @@ public class ProductRepository {
         }
         throw new NoSuchElementException("No product found with ID: " + product.getProductId());
     }
+
+    public Product delete(Product product) {
+        productData.remove(product);
+        return product;
+    }
 }
