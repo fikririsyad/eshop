@@ -221,7 +221,7 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
 
-        Product deletedProduct = productRepository.delete(product);
+        Product deletedProduct = productRepository.delete(product.getProductId());
         assertFalse(productIterator.hasNext());
         assertEquals(product.getProductId(), deletedProduct.getProductId());
         assertEquals(product.getProductName(), deletedProduct.getProductName());
@@ -245,16 +245,23 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
 
-        Product deletedProduct = productRepository.delete(product1);
+        Product deletedProduct = productRepository.delete(product1.getProductId());
         assertTrue(productIterator.hasNext());
         assertEquals(product1.getProductId(), deletedProduct.getProductId());
         assertEquals(product1.getProductName(), deletedProduct.getProductName());
         assertEquals(product1.getProductQuantity(), deletedProduct.getProductQuantity());
 
-        deletedProduct = productRepository.delete(product2);
+        deletedProduct = productRepository.delete(product2.getProductId());
         assertFalse(productIterator.hasNext());
         assertEquals(product2.getProductId(), deletedProduct.getProductId());
         assertEquals(product2.getProductName(), deletedProduct.getProductName());
         assertEquals(product2.getProductQuantity(), deletedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testDeleteProductIfNotFound() {
+        assertThrows(NoSuchElementException.class, () -> {
+            productRepository.delete("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        });
     }
 }
