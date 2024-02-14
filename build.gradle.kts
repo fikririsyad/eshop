@@ -6,6 +6,14 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "fikririsyad_eshop")
+        property("sonar.organization", "fikririsyad")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
+
 group = "id.ac.ui.cs.advprog"
 version = "0.0.1-SNAPSHOT"
 
