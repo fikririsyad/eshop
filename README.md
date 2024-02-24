@@ -7,6 +7,11 @@
 **App URL: https://eshop-fikririsyad.koyeb.app/**
 
 ---
+## Sections
+- [Tutorial 1](#tutorial-1)
+- [Tutorial 2](#tutorial-2)
+- [Tutorial 3](#tutorial-3)
+---
 
 ## Tutorial 1
 
@@ -59,7 +64,7 @@ will inherit. Therefore, we reduce the amount of code while still having the sam
 
 # Tutorial 2
 
-## Reflection
+### Reflection
 
 > List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
 
@@ -77,5 +82,43 @@ CI workflow. The workflow will get triggered every time I push or make a pull re
 tests to check my code. I also have Scorecard and SonarCloud workflow to check the security and the quality of my code.
 As for the deployment (CD), it will be deployed automatically by Koyeb every time there is a push or pull request in the `main`
 branch.
+
+---
+
+# Tutorial 3
+
+### Reflection
+
+> Explain what principles you apply to your project!
+
+1. **Single Responsibility Principle (SRP)**
+
+    I have applied SRP by separating `CarController` from `ProductController` file into its own file. By doing this,
+    each controller file has its own responsibility seeing that `CarController` is not `ProductController`'s responsibility.
+
+2. **Liskov Substitution Principle (LSP)**
+   
+    I have applied LSP since I can use `CarService` and `CarServiceImpl` interchangeably without causing
+    unexpected behavior.
+
+3. **Dependency Inversion Principle (DIP)**
+
+    I have applied DIP by changing `CarServiceImpl` class to `CarService` interface in `CarController` class. Therefore,
+    `CarController` will depends on its abstraction rather than its concrete implementation.
+
+> Explain the advantages of applying SOLID principles to your project with examples.
+
+By adhering to SOLID principles, our code will be more organized and manageable. For instance, it will be easier for me 
+and other people to understand and maintain `CarController` now after we separate it from `ProductController`. We can
+easily find which file that we need to modify. By applying DIP, changes to implementations do not directly impact 
+the class that depends on the interface, leading to a more resilient and maintainable codebase, like in the case of 
+`CarController` and `CarService`.
+
+> Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+If I don't adhere to SOLID principles, the code would be unorganized, and it would be harder for us and other people to
+read and understand our code. We would be having a hard time trying to modify our code because it's so messy when we left
+it. It would be more difficult for us to identify the cause of an error.
+
 
 ---
