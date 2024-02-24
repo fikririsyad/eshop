@@ -8,9 +8,4 @@ public class Product {
     private String productId;
     private String productName;
     private int productQuantity;
-    private static int totalProduct;
-
-    public Product() {
-        this.productId = String.valueOf(totalProduct++);
-    }
 }
