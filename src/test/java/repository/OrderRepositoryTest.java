@@ -86,7 +86,7 @@ class OrderRepositoryTest {
             orderRepository.save(order);
         }
 
-        Order findResult = orderRepository.findById(orders.get(1).getId());
+        Order findResult = orderRepository.findById("zczc");
         assertNull(findResult);
     }
 
