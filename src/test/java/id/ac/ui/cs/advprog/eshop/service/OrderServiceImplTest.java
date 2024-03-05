@@ -1,15 +1,16 @@
-package service;
+package id.ac.ui.cs.advprog.eshop.service;
 
 import enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Order;
+import id.ac.ui.cs.advprog.eshop.service.OrderServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repository.OrderRepository;
+import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;

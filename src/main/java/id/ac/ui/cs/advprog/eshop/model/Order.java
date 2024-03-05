@@ -1,4 +1,4 @@
-package model;
+package id.ac.ui.cs.advprog.eshop.model;
 
 import enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Product;

@@ -1,6 +1,6 @@
-package service;
+package id.ac.ui.cs.advprog.eshop.service;
 
-import model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Order;
 
 import java.util.List;
 

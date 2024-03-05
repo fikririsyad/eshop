@@ -1,9 +1,10 @@
-package service;
+package id.ac.ui.cs.advprog.eshop.service;
 
-import model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Order;
+import id.ac.ui.cs.advprog.eshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.OrderRepository;
+import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
