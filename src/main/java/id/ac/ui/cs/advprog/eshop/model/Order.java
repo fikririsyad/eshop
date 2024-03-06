@@ -1,7 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
-import enums.OrderStatus;
-import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 
