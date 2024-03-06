@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import lombok.Getter;
 
 import java.util.Map;
@@ -17,9 +18,9 @@ public class Payment {
         setOrder(order);
         setMethod(method);
 
-        if (this.method.equals("voucher")) {
+        if (this.method.equals(PaymentMethod.VOUCHER.getValue())) {
             setPaymentDataVoucher(paymentData);
-        } else if (this.method.equals("bank")) {
+        } else {
             setPaymentDataBank(paymentData);
         }
     }
@@ -32,7 +33,7 @@ public class Payment {
     }
 
     private void setMethod(String method) {
-        if ((method == null) || ((!method.equals("voucher")) && (!method.equals("bank")))) {
+        if ((method == null) || (!PaymentMethod.contains(method))) {
             throw new IllegalArgumentException();
         }
         this.method = method;
