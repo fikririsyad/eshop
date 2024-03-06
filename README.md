@@ -120,5 +120,26 @@ If I don't adhere to SOLID principles, the code would be unorganized, and it wou
 read and understand our code. We would be having a hard time trying to modify our code because it's so messy when we left
 it. It would be more difficult for us to identify the cause of an error.
 
+---
+
+> Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” 
+> submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If 
+> not, explain things that you need to do next time you make more tests.
+
+I think TDD flow might be useful for me in the future. As for now, I am still not used to the flow and sometimes confused
+on what I have to test. As for the correctness, I believe my tests have covered most of the code, but there might still be edge
+cases. As for the maintainable code, I believe using TDD flow has made my code a bit cleaner than before, and with the
+refactoring step, I can improve the code. As for productive workflow, I think writing the tests is the longest part of
+the whole TDD process. I still need to practice more so that I can improve my workflow.
+
+> You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. 
+> principle or not. If not, explain things that you need to do the next time you create more tests.
+
+I think the tests that I made have adhered to almost all of F.I.R.S.T principles. I believe my tests are fast and will show the results
+shortly after they are run. Each test case is also isolated from the others, and I've used setUp method for setting up
+the environment. All the tests will return the same result every time I run the tests, so it is consistent and repeatable.
+I think all assertions that I made are human-readable, and related to the context. As for the Thorough/Timely principle,
+I assume there are still unhappy paths that I haven't fully handled, so there might be errors that haven't been covered
+yet.
 
 ---
