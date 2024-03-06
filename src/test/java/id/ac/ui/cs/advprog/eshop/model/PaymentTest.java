@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,7 @@ class PaymentTest {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
-           Payment payment = new Payment("id12345", "voucherCode", null, paymentData);
+           Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), null, paymentData);
         });
     }
 
@@ -56,7 +57,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentEmptyPaymentData() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("id12345", "voucher", order, paymentData);
+            Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         });
     }
 
@@ -64,7 +65,7 @@ class PaymentTest {
     void testCreatePaymentInvalidVoucherCode() {
         this.paymentData.put("voucherCode", null);
 
-        Payment payment = new Payment("id12345", "voucher", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -73,7 +74,7 @@ class PaymentTest {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("id12345", "bank", order, paymentData);
+            Payment payment = new Payment("id12345", PaymentMethod.BANK.getValue(), order, paymentData);
         });
     }
 
@@ -82,7 +83,7 @@ class PaymentTest {
         this.paymentData.put("bankName", "BCA");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("id12345", "bank", order, paymentData);
+            Payment payment = new Payment("id12345", PaymentMethod.BANK.getValue(), order, paymentData);
         });
     }
 
@@ -91,7 +92,7 @@ class PaymentTest {
         this.paymentData.put("bankName", null);
         this.paymentData.put("referenceCode", null);
 
-        Payment payment = new Payment("id12345", "bank", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.BANK.getValue(), order, paymentData);
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -99,10 +100,10 @@ class PaymentTest {
     void testCreatePaymentSuccess() {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("id12345", "voucher", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
 
         assertEquals("id12345", payment.getId());
-        assertEquals("voucher", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
         assertTrue(payment.getPaymentData().containsKey("voucherCode"));
         assertEquals("ESHOP1234ABC5678", payment.getPaymentData().get("voucherCode"));
@@ -113,7 +114,7 @@ class PaymentTest {
     void testSetStatusToSuccess() {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("id12345", "voucher", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         payment.setStatus("SUCCESS");
 
         assertEquals("SUCCESS", payment.getStatus());
@@ -124,7 +125,7 @@ class PaymentTest {
     void testSetStatusToRejected() {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("id12345", "voucher", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         payment.setStatus("REJECTED");
 
         assertEquals("REJECTED", payment.getStatus());
@@ -135,7 +136,7 @@ class PaymentTest {
     void testSetStatusToInvalidStatus() {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("id12345", "voucher", order, paymentData);
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("MEOW"));
     }
 }
