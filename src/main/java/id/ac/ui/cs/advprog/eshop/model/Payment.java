@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
@@ -15,15 +16,27 @@ public class Payment {
     Map<String, String> paymentData;
 
     public Payment(String id, String method, Order order, Map<String, String> paymentData) {
+        this(id, method, order, paymentData, PaymentStatus.PENDING.getValue());
+    }
+
+    public Payment(String id, String method, Order order, Map<String, String> paymentData, String status) {
         this.id = id;
         setOrder(order);
         setMethod(method);
 
+        boolean isPaymentValid;
         if (this.method.equals(PaymentMethod.VOUCHER.getValue())) {
-            setPaymentDataVoucher(paymentData);
+             isPaymentValid = isVoucherCodeValid(paymentData);
         } else {
-            setPaymentDataBank(paymentData);
+            isPaymentValid = isBankValid(paymentData);
         }
+
+        if (isPaymentValid) {
+            setStatus(status);
+        } else {
+            setStatus(PaymentStatus.REJECTED.getValue());
+        }
+        this.paymentData = paymentData;
     }
 
     private void setOrder(Order order) {
@@ -40,22 +53,12 @@ public class Payment {
         this.method = method;
     }
 
-    private void setPaymentDataVoucher(Map<String, String> paymentData) {
+    private boolean isVoucherCodeValid(Map<String, String> paymentData) {
         if ((paymentData.size() != 1) && (!paymentData.containsKey("voucherCode"))) {
             throw new IllegalArgumentException();
         }
 
         String code = paymentData.get("voucherCode");
-
-        if (isVoucherCodeValid(code)) {
-            this.status = PaymentStatus.PENDING.getValue();
-        } else {
-            this.status = PaymentStatus.REJECTED.getValue();
-        }
-        this.paymentData = paymentData;
-    }
-
-    private boolean isVoucherCodeValid(String code) {
         if (code == null) {
             return false;
         }
@@ -76,7 +79,7 @@ public class Payment {
         return false;
     }
 
-    private void setPaymentDataBank(Map<String, String> paymentData) {
+    private boolean isBankValid(Map<String, String> paymentData) {
         if (paymentData.size() != 2) {
             throw new IllegalArgumentException();
         }
@@ -85,21 +88,19 @@ public class Payment {
             throw new IllegalArgumentException();
         }
 
-        if ((paymentData.containsValue(null)) || (paymentData.containsValue(""))) {
-            this.status = PaymentStatus.REJECTED.getValue();
-        } else {
-            this.status = PaymentStatus.PENDING.getValue();
-        }
-        this.paymentData = paymentData;
+        return (!paymentData.containsValue(null)) && (!paymentData.containsValue(""));
     }
 
     public void setStatus(String status) {
         if (status.equals(PaymentStatus.SUCCESS.getValue())) {
             this.status = status;
-            order.setStatus(status);
+            order.setStatus(OrderStatus.SUCCESS.getValue());
         } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
             this.status = status;
-            order.setStatus("FAILED");
+            order.setStatus(OrderStatus.FAILED.getValue());
+        } else if (status.equals(PaymentStatus.PENDING.getValue())) {
+            this.status = status;
+            order.setStatus(OrderStatus.WAITING_PAYMENT.getValue());
         } else {
             throw new IllegalArgumentException();
         }
