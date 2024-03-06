@@ -65,7 +65,7 @@ class PaymentTest {
 
     @Test
     void testCreatePaymentInvalidVoucherCode() {
-        this.paymentData.put("voucherCode", null);
+        this.paymentData.put("voucherCode", "E1S2H3O4P5A6B7C8");
 
         Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
         assertEquals("REJECTED", payment.getStatus());
@@ -99,7 +99,7 @@ class PaymentTest {
     }
 
     @Test
-    void testCreatePaymentSuccess() {
+    void testCreatePaymentDefaultStatus() {
         this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(), order, paymentData);
@@ -110,6 +110,26 @@ class PaymentTest {
         assertTrue(payment.getPaymentData().containsKey("voucherCode"));
         assertEquals("ESHOP1234ABC5678", payment.getPaymentData().get("voucherCode"));
         assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreatePaymentSuccessStatus() {
+        this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
+
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(),
+                order, paymentData, PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), payment.getOrder().getStatus());
+    }
+
+    @Test
+    void testCreatePaymentRejectedStatus() {
+        this.paymentData.put("voucherCode", "ESHOP1234ABC5678");
+
+        Payment payment = new Payment("id12345", PaymentMethod.VOUCHER.getValue(),
+                order, paymentData, PaymentStatus.REJECTED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), payment.getOrder().getStatus());
     }
 
     @Test
