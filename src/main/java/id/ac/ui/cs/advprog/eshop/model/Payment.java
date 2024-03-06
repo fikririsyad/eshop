@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
 
 import java.util.Map;
@@ -47,9 +48,9 @@ public class Payment {
         String code = paymentData.get("voucherCode");
 
         if (isVoucherCodeValid(code)) {
-            this.status = "PENDING";
+            this.status = PaymentStatus.PENDING.getValue();
         } else {
-            this.status = "REJECTED";
+            this.status = PaymentStatus.REJECTED.getValue();
         }
         this.paymentData = paymentData;
     }
@@ -85,18 +86,18 @@ public class Payment {
         }
 
         if ((paymentData.containsValue(null)) || (paymentData.containsValue(""))) {
-            this.status = "REJECTED";
+            this.status = PaymentStatus.REJECTED.getValue();
         } else {
-            this.status = "PENDING";
+            this.status = PaymentStatus.PENDING.getValue();
         }
         this.paymentData = paymentData;
     }
 
     public void setStatus(String status) {
-        if (status.equals("SUCCESS")) {
+        if (status.equals(PaymentStatus.SUCCESS.getValue())) {
             this.status = status;
             order.setStatus(status);
-        } else if (status.equals("REJECTED")) {
+        } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
             this.status = status;
             order.setStatus("FAILED");
         } else {
